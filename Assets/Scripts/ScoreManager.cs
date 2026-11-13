@@ -18,4 +18,16 @@ public class ScoreManager : MonoBehaviour
         if(next == GameState.PLAY)
             score = 0;
     }
+    public void AddScore(int points)
+    {
+        score += points;
+    }
+    public void ResetScore()
+    {
+        score = 0;
+    }
+    public int GetScore()
+    {
+        return score;
+    }
 }
