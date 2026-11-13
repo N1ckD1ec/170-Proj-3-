@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -7,6 +6,8 @@ public class RingGenerator : MonoBehaviour
     public float radius = 4f;
     public int segments = 360;
     public float lineWidth = 0.05f;
+
+    [SerializeField] private Color ringColor = Color.cyan;
 
     private LineRenderer line;
 
@@ -20,6 +21,10 @@ public class RingGenerator : MonoBehaviour
 
         line.startWidth = lineWidth;
         line.endWidth = lineWidth;
+
+        // Set the ring color
+        line.startColor = ringColor;
+        line.endColor = ringColor;
 
         for (int i = 0; i < segments; i++)
         {
