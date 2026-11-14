@@ -10,6 +10,14 @@ public class PlayerStats : MonoBehaviour
         maxHealth = health;
     }
 
+    void OnEnable()  => GameManager.StateChanged += OnStateChanged;
+    void OnDisable() => GameManager.StateChanged -= OnStateChanged;
+
+    void OnStateChanged(GameState previous, GameState next)
+    {
+        if(next == GameState.PLAY && previous != GameState.PAUSED)
+            health = maxHealth;
+    }
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -23,4 +31,5 @@ public class PlayerStats : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;
     }
+    
 }
