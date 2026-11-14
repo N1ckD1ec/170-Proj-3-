@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
 
     void OnStateChanged(GameState previous, GameState next)
     {
-        if(next == GameState.PLAY)
+        if(next == GameState.PLAY && previous != GameState.PAUSED)
             score = 0;
     }
     public void AddScore(int points)
