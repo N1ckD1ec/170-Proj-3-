@@ -561,11 +561,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9055a430a41f24240b7ac9499ebc00c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
-  linkCount: 12
+  linkCount: 24
   linkSize: 0.25
   linkPrefab: {fileID: 9058113540355853321, guid: 0a4b45d35d35f244fae5a485b628755e, type: 3}
+  angleConstraint: 20
   rotationSpeed: 2.5
-  expansionSpeed: 0.025
+  expansionSpeed: 0.1
 --- !u!114 &1903560324 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1070933979998067725, guid: 709b5dd129f56e3489b317e3dc322007, type: 3}
