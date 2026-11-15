@@ -1,11 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] int linkCount = 0;
     [SerializeField] float linkSize = 0.25f;
     [SerializeField] GameObject linkPrefab;
-    GameObject[] links;
+    List<GameObject> links = new List<GameObject>();
     Vector3 targetPosition;
     [SerializeField] float angleConstraint = 60f;
 
@@ -15,40 +16,58 @@ public class EnemyManager : MonoBehaviour
     float currentRadius = 0f;
     Vector3 centerPosition;
 
+    bool initializedLinks = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        links = new GameObject[linkCount];
-        for (int i = 0; i < linkCount; i++)
+        if (!initializedLinks)
         {
-            links[i] = Instantiate(linkPrefab, transform.position, transform.rotation, this.transform);
-        }
+            for (int i = 0; i < linkCount; i++)
+            {
+                links.Add(Instantiate(linkPrefab, transform.position, transform.rotation, this.transform));
+            }
 
-        centerPosition = transform.position;
-        targetPosition = transform.position;
+            centerPosition = transform.position;
+            targetPosition = transform.position;
+
+            initializedLinks = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentAngle += rotationSpeed * Time.deltaTime;
-        currentRadius += expansionSpeed * Time.deltaTime;
+        if (links.Count <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        float offsetX = currentRadius * Mathf.Cos(currentAngle);
-        float offsetY = currentRadius * Mathf.Sin(currentAngle);
-        targetPosition = centerPosition + new Vector3(offsetX, offsetY, 0f);
-        Resolve();
+        CheckIfSplit();
+
+        if (links.Count > 0)
+        {
+            currentAngle += rotationSpeed * Time.deltaTime;
+            currentRadius += expansionSpeed * Time.deltaTime;
+
+            float offsetX = currentRadius * Mathf.Cos(currentAngle);
+            float offsetY = currentRadius * Mathf.Sin(currentAngle);
+            targetPosition = centerPosition + new Vector3(offsetX, offsetY, 0f);
+            Resolve();
+        }
     }
 
     private void Resolve()
     {
-        if (linkCount > 0)
+        links.RemoveAll(item => item == null);
+        if (links.Count > 0)
         {
             Vector3 headPosition = links[0].transform.position;
             links[0].transform.rotation = Quaternion.Euler(0f, 0f, GetPointDirection(headPosition, targetPosition));
             links[0].transform.position = targetPosition;
 
-            for (int i = 1; i < linkCount; i++)
+            for (int i = 1; i < links.Count; i++)
             {
                 Vector3 currentPosition = links[i].transform.position;
                 Vector3 aheadPosition = links[i - 1].transform.position;
@@ -60,6 +79,55 @@ public class EnemyManager : MonoBehaviour
                 float newY = aheadPosition.y - LengthDirY(linkSize, constrainedAngle);
                 links[i].transform.position = new Vector3(newX, newY, 0f);
                 links[i].transform.rotation = Quaternion.Euler(0f, 0f, constrainedAngle);
+            }
+        }
+    }
+
+    public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize)
+    {
+        links = tailLinks;
+        foreach (var link in links)
+        {
+            link.transform.SetParent(this.transform);
+        }
+        centerPosition = center;
+        rotationSpeed = rotSpeed;
+        expansionSpeed = expSpeed;
+        linkSize = lSize;
+
+        Vector3 newHeadPos = links[0].transform.position;
+        Vector3 offset = newHeadPos - centerPosition;
+        currentAngle = Mathf.Atan2(offset.y, offset.x);
+        currentRadius = offset.magnitude;
+
+        initializedLinks = true;
+    }
+
+    private void CheckIfSplit()
+    {
+        for (int i = 0; i < links.Count; i++)
+        {
+            if (links[i] == null)
+            {
+                List<GameObject> tailLinks = new List<GameObject>();
+                for (int j = i + 1; j < links.Count; j++)
+                {
+                    if (links[j] != null)
+                    {
+                        tailLinks.Add(links[j]);
+                    }
+                }
+
+                if (tailLinks.Count > 0)
+                {
+                    tailLinks.Reverse();
+                    GameObject splitEnemyManagerObj = new GameObject("EnemyManager");
+                    EnemyManager splitEnemyManager = splitEnemyManagerObj.AddComponent<EnemyManager>();
+                    splitEnemyManager.InitializeSplitChain(tailLinks, centerPosition, (i == 0) ? rotationSpeed : -rotationSpeed, expansionSpeed, linkSize);
+                }
+
+                links.RemoveRange(i, links.Count - i);
+                break;
             }
         }
     }
