@@ -25,7 +25,10 @@ public class EnemyManager : MonoBehaviour
         {
             for (int i = 0; i < linkCount; i++)
             {
-                links.Add(Instantiate(linkPrefab, transform.position, transform.rotation, this.transform));
+                GameObject enemyLinkObj = Instantiate(linkPrefab, transform.position, transform.rotation, this.transform);
+                EnemyLink enemyLink = enemyLinkObj.GetComponent<EnemyLink>();
+                links.Add(enemyLinkObj);
+                enemyLink.origin = this;
             }
 
             centerPosition = transform.position;
@@ -83,12 +86,23 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public void DestroyEnemyChain()
+    {
+        foreach (var link in links)
+        {
+            link.GetComponent<EnemyLink>().touchedRing = true;
+            Destroy(link);
+        }
+        Destroy(gameObject);
+    }
+
     public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize)
     {
         links = tailLinks;
         foreach (var link in links)
         {
             link.transform.SetParent(this.transform);
+            link.GetComponent<EnemyLink>().origin = this;
         }
         centerPosition = center;
         rotationSpeed = rotSpeed;

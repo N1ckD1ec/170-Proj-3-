@@ -10,8 +10,16 @@ public class ScoreManager : MonoBehaviour
     }
     void OnDestroy() { if (Instance == this) Instance = null; }
 
-    void OnEnable()  => GameManager.StateChanged += OnStateChanged;
-    void OnDisable() => GameManager.StateChanged -= OnStateChanged;
+    void OnEnable()
+    {
+        GameManager.StateChanged += OnStateChanged;
+        EnemyLink.OnEnemyTouchedRing += AddScore;
+    }
+    void OnDisable()
+    {
+        GameManager.StateChanged -= OnStateChanged;
+        EnemyLink.OnEnemyTouchedRing -= AddScore;
+    }
 
     void OnStateChanged(GameState previous, GameState next)
     {
@@ -21,6 +29,7 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int points)
     {
         score += points;
+        Debug.Log(score);
     }
     public void ResetScore()
     {
