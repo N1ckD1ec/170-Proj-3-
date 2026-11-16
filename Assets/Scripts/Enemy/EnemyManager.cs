@@ -9,9 +9,10 @@ public class EnemyManager : MonoBehaviour
     List<GameObject> links = new List<GameObject>();
     Vector3 targetPosition;
     [SerializeField] float angleConstraint = 60f;
-
     [SerializeField] float rotationSpeed = 2.5f;
     [SerializeField] float expansionSpeed = 0.025f;
+    [SerializeField] Sprite headSprite;
+
     float currentAngle = 0f;
     float currentRadius = 0f;
     Vector3 centerPosition;
@@ -35,6 +36,7 @@ public class EnemyManager : MonoBehaviour
             targetPosition = transform.position;
 
             initializedLinks = true;
+            ApplyHeadSprite();
         }
     }
 
@@ -115,6 +117,7 @@ public class EnemyManager : MonoBehaviour
         currentRadius = offset.magnitude;
 
         initializedLinks = true;
+        ApplyHeadSprite();
     }
 
     private void CheckIfSplit()
@@ -190,5 +193,13 @@ public class EnemyManager : MonoBehaviour
         }
 
         return SimplifyAngle(anchor + constraint);
+    }
+    private void ApplyHeadSprite()
+    {
+        if (headSprite == null || links.Count == 0)
+            return;
+        SpriteRenderer renderer = links[0].GetComponentInChildren<SpriteRenderer>(true);
+        if (renderer != null)
+            renderer.sprite = headSprite;
     }
 }
