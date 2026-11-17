@@ -568,6 +568,63 @@ MonoBehaviour:
   rotationSpeed: 2.5
   expansionSpeed: 0.1
   headSprite: {fileID: 21300000, guid: 9680e0f208d96304284d4088c5586405, type: 3}
+--- !u!1001 &1893906682
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_Name
+      value: Still Dirt Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.32967
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
 --- !u!114 &1903560324 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1070933979998067725, guid: 709b5dd129f56e3489b317e3dc322007, type: 3}
@@ -685,6 +742,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1327809143}
+  - {fileID: 1893906682}
   - {fileID: 1659011108}
   - {fileID: 295215923}
   - {fileID: 2720758191977468959}
