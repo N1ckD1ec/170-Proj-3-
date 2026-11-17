@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] int health;
+    [SerializeField] int health = 3;
+    [SerializeField] int damage = 1;
     int maxHealth;
 
     void Awake()
@@ -31,5 +32,12 @@ public class PlayerStats : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;
     }
-    
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
+    public void ResetDamage()
+    {
+        damage = 1;
+    }
 }

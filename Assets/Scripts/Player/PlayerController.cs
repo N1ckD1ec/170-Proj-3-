@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] RingGenerator ringGenerator;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject firePoint;
+    PlayerStats playerStats;
     Rigidbody2D rb;
     float radius;
     float anglePosition;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         radius = ringGenerator.radius;
         anglePosition = startingAngle * Mathf.Deg2Rad;
         rb.position = GetPositionOnRing(anglePosition);
+        playerStats = GetComponent<PlayerStats>();
     }
     public void OnMove(InputAction.CallbackContext context)
     {
