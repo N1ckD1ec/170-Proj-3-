@@ -132,7 +132,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (links[i] == null && (i == 0 || i == links.Count - 1))
             {
-                links.RemoveAt(0);
+                links.RemoveAt(i);
                 ApplyHeadSprite();
                 break;
             }
