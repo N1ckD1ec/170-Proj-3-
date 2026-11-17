@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance {get; private set;}
+    public static event Action<int> ScoreChanged;
     public int score;
     void Awake() {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -29,10 +31,12 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int points)
     {
         score += points;
+        ScoreChanged?.Invoke(score);
     }
     public void ResetScore()
     {
         score = 0;
+        ScoreChanged?.Invoke(score);
     }
     public int GetScore()
     {
