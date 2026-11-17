@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour
             targetPosition = transform.position;
 
             initializedLinks = true;
-            ApplyHeadSprite();
+            ApplyHead();
         }
     }
 
@@ -90,7 +90,7 @@ public class EnemyManager : MonoBehaviour
 
     public bool IsHead(EnemyLink link)
     {
-        return (links[0] == link);
+        return links.Count >= 1 && links[0] == link;
     }
 
     public void DestroyEnemyChain()
@@ -123,7 +123,7 @@ public class EnemyManager : MonoBehaviour
         currentRadius = offset.magnitude;
 
         initializedLinks = true;
-        ApplyHeadSprite();
+        ApplyHead();
     }
 
     private void CheckIfSplit()
@@ -205,6 +205,11 @@ public class EnemyManager : MonoBehaviour
         }
 
         return SimplifyAngle(anchor + constraint);
+    }
+    private void ApplyHead()
+    {
+        links[0].GetComponentInChildren<EnemyLink>().health = 1;
+        ApplyHeadSprite();
     }
     private void ApplyHeadSprite()
     {
