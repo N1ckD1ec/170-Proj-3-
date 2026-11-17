@@ -97,8 +97,11 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (var link in links)
         {
-            link.GetComponent<EnemyLink>().touchedRing = true;
-            Destroy(link);
+            if (link != null)
+            {
+                link.GetComponent<EnemyLink>().touchedRing = true;
+                Destroy(link);
+            }
         }
         Destroy(gameObject);
     }
@@ -130,13 +133,27 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < links.Count; i++)
         {
-            if (links[i] == null && (i == 0 || i == links.Count - 1))
+            if (links[i] == null && i == links.Count - 1)
             {
                 links.RemoveAt(i);
-                ApplyHeadSprite();
+                ApplyHead();
                 break;
             }
-            if (links[i] == null)
+            else if (links[i] == null && i == 0)
+            {
+                links.RemoveAt(i);
+
+                if (links.Count > 0 && links[0] != null)
+                {
+                    Vector3 newHeadPos = links[0].transform.position;
+                    Vector3 offset = newHeadPos - centerPosition;
+                    currentAngle = Mathf.Atan2(offset.y, offset.x);
+                    currentRadius = offset.magnitude;
+                    ApplyHead();
+                }
+                break;
+            }
+            else if (links[i] == null)
             {
                 List<GameObject> tailLinks = new List<GameObject>();
                 for (int j = i + 1; j < links.Count; j++)
@@ -208,7 +225,13 @@ public class EnemyManager : MonoBehaviour
     }
     private void ApplyHead()
     {
-        links[0].GetComponentInChildren<EnemyLink>().health = 1;
+        if (links.Count == 0) return;
+
+        EnemyLink headLink = links[0].GetComponentInChildren<EnemyLink>();
+        if (headLink != null)
+        {
+            headLink.health = 1;
+        }
         ApplyHeadSprite();
     }
     private void ApplyHeadSprite()
