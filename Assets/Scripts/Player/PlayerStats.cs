@@ -32,11 +32,15 @@ public class PlayerStats : MonoBehaviour
         if(health > maxHealth)
             health = maxHealth;
     }
-    public void SetDamage(int newDamage)
+    public int GetBulletDamage()
+    {
+        return damage;
+    }
+    public void SetBulletDamage(int newDamage)
     {
         damage = newDamage;
     }
-    public void ResetDamage()
+    public void ResetBulletDamage()
     {
         damage = 1;
     }

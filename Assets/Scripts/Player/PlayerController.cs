@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 dir = transform.up;
         GameObject bullet = Instantiate(bulletPrefab, firePoint.transform.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().Initilize(dir);
+        bullet.GetComponent<Bullet>().Initilize(dir, playerStats.GetBulletDamage());
     }
     void Update()
     {
