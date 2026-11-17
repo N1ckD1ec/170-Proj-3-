@@ -90,7 +90,7 @@ public class EnemyManager : MonoBehaviour
 
     public bool IsHead(EnemyLink link)
     {
-        return (links[0] == link);
+        return links.Count >= 1 && links[0] == link;
     }
 
     public void DestroyEnemyChain()
