@@ -41,7 +41,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (links.Count <= 0)
         {
@@ -130,6 +130,12 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < links.Count; i++)
         {
+            if (links[i] == null && (i == 0 || i == links.Count - 1))
+            {
+                links.RemoveAt(0);
+                ApplyHeadSprite();
+                break;
+            }
             if (links[i] == null)
             {
                 List<GameObject> tailLinks = new List<GameObject>();
