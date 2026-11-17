@@ -32,7 +32,12 @@ public class EnemyLink : MonoBehaviour
             OnEnemyTouchedRing?.Invoke(-1);
         } else
         {
-            ScoreManager.Instance.AddScore(1);
+            int points = 1;
+            if (origin.IsHead(this))
+            {
+                points = 5;
+            }
+            ScoreManager.Instance.AddScore(points);
         }
     }
 }

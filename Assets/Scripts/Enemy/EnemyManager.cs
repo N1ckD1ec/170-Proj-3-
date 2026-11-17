@@ -88,6 +88,11 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public bool IsHead(EnemyLink link)
+    {
+        return (links[0] == link);
+    }
+
     public void DestroyEnemyChain()
     {
         foreach (var link in links)
