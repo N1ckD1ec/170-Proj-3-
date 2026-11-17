@@ -20,6 +20,9 @@ public class EnemyLink : MonoBehaviour
         if (touchedRing)
         {
             OnEnemyTouchedRing?.Invoke(-1);
+        } else
+        {
+            ScoreManager.Instance.AddScore(1);
         }
     }
 }

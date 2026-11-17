@@ -589,7 +589,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1070933979998067725, guid: 709b5dd129f56e3489b317e3dc322007, type: 3}
       propertyPath: fireRate
-      value: 0.01
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1070933979998067725, guid: 709b5dd129f56e3489b317e3dc322007, type: 3}
       propertyPath: ringGenerator
