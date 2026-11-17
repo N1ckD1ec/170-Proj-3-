@@ -15,12 +15,10 @@ public class ScoreManager : MonoBehaviour
     void OnEnable()
     {
         GameManager.StateChanged += OnStateChanged;
-        EnemyLink.OnEnemyTouchedRing += AddScore;
     }
     void OnDisable()
     {
         GameManager.StateChanged -= OnStateChanged;
-        EnemyLink.OnEnemyTouchedRing -= AddScore;
     }
 
     void OnStateChanged(GameState previous, GameState next)

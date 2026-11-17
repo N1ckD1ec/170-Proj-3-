@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyLink : MonoBehaviour
 {
     public EnemyManager origin;
-    public static event Action<int> OnEnemyTouchedRing;
     public bool touchedRing = false;
     public int health = 3;
 
@@ -29,7 +28,7 @@ public class EnemyLink : MonoBehaviour
     {
         if (touchedRing)
         {
-            OnEnemyTouchedRing?.Invoke(-1);
+            ScoreManager.Instance.AddScore(-1);
         } else
         {
             int points = 1;
