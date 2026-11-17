@@ -98,7 +98,7 @@ public class EnemyManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize)
+    public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize, Sprite tempHeadSprite)
     {
         links = tailLinks;
         foreach (var link in links)
@@ -110,6 +110,7 @@ public class EnemyManager : MonoBehaviour
         rotationSpeed = rotSpeed;
         expansionSpeed = expSpeed;
         linkSize = lSize;
+        headSprite = tempHeadSprite;
 
         Vector3 newHeadPos = links[0].transform.position;
         Vector3 offset = newHeadPos - centerPosition;
@@ -140,7 +141,7 @@ public class EnemyManager : MonoBehaviour
                     tailLinks.Reverse();
                     GameObject splitEnemyManagerObj = new GameObject("EnemyManager");
                     EnemyManager splitEnemyManager = splitEnemyManagerObj.AddComponent<EnemyManager>();
-                    splitEnemyManager.InitializeSplitChain(tailLinks, centerPosition, (i == 0) ? rotationSpeed : -rotationSpeed, expansionSpeed, linkSize);
+                    splitEnemyManager.InitializeSplitChain(tailLinks, centerPosition, (i == 0) ? rotationSpeed : -rotationSpeed, expansionSpeed, linkSize, headSprite);
                 }
 
                 links.RemoveRange(i, links.Count - i);
