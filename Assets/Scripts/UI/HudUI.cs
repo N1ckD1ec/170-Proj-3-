@@ -6,7 +6,7 @@ public class HudUI : MonoBehaviour
     
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private TextMeshProUGUI scoreText;
-
+ 
     void OnEnable()
     {
         ScoreManager.ScoreChanged += HandleScoreUpdate;
