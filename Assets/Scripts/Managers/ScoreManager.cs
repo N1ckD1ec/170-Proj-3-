@@ -7,6 +7,12 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance {get; private set;}
     public static event Action<int> ScoreChanged;
     public int score;
+
+    [SerializeField] private AudioSource scoreAudioSource;
+    [SerializeField] private AudioClip onePointSound;
+    [SerializeField] private AudioClip fivePointSound;
+    [SerializeField] private AudioClip pointLossSound;
+
     void Awake() {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
@@ -31,6 +37,15 @@ public class ScoreManager : MonoBehaviour
     {
         score += points;
         ScoreChanged?.Invoke(score);
+        AudioClip awardClip = points switch
+        {
+            1 => onePointSound, 5 => fivePointSound, -1 => pointLossSound, _ => null
+        };
+
+        if (scoreAudioSource != null && awardClip != null)
+        {
+            scoreAudioSource.PlayOneShot(awardClip);
+        }
     }
     public void ResetScore()
     {
