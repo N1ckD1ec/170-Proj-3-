@@ -31,7 +31,8 @@ public class ScoreManager : MonoBehaviour
     void OnStateChanged(GameState previous, GameState next)
     {
         if(next == GameState.PLAY && previous != GameState.PAUSED)
-            score = 0;
+        {Debug.Log("Restarting"); score = 0;}
+            
     }
     public void AddScore(int points)
     {

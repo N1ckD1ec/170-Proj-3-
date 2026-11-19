@@ -12,7 +12,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
-    public GameState gameState {get; private set;} = GameState.TITLE;
+    public GameState gameState {get; private set;} = GameState.PLAY;
 
     public static event Action<GameState, GameState> StateChanged;
 
