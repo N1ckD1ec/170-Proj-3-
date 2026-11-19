@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
         health -= damage;
         if(health < 0)
             health = 0;
+        Debug.Log(health);
     }
 
     public void Heal(int amount)

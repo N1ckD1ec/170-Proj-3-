@@ -13,6 +13,10 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] float expansionSpeed = 0.025f;
     [SerializeField] Sprite headSprite;
 
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] float fireInterval = 1f;
+    float fireTimer = 0f;
+
     float currentAngle = 0f;
     float currentRadius = 0f;
     Vector3 centerPosition;
@@ -60,6 +64,16 @@ public class EnemyManager : MonoBehaviour
             float offsetY = currentRadius * Mathf.Sin(currentAngle);
             targetPosition = centerPosition + new Vector3(offsetX, offsetY, 0f);
             Resolve();
+
+            if (bulletPrefab != null)
+            {
+                fireTimer += Time.fixedDeltaTime;
+                if (fireTimer >= fireInterval)
+                {
+                    FireBullet();
+                    fireTimer = 0f;
+                }
+            }
         }
     }
 
@@ -88,6 +102,17 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    private void FireBullet()
+    {
+        if (links.Count > 0 && links[0] != null)
+        {
+            Transform headTransform = links[0].transform;
+            GameObject bulletObj = Instantiate(bulletPrefab, headTransform.position, headTransform.rotation);
+            EnemyBullet bullet = bulletObj.GetComponent<EnemyBullet>();
+            bullet.Initilize(headTransform.right);
+        }
+    }
+
     public bool IsHead(EnemyLink link)
     {
         return links.Count >= 1 && links[0] == link.gameObject;
@@ -106,10 +131,10 @@ public class EnemyManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize, Sprite tempHeadSprite)
+    public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize, Sprite tempHeadSprite, GameObject bullet, float interval)
     {
         links = tailLinks;
-        Color newColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
+        Color newColor = new Color(Random.value, Random.value, Random.value, 1f);
         foreach (var link in links)
         {
             link.transform.SetParent(this.transform);
@@ -121,6 +146,8 @@ public class EnemyManager : MonoBehaviour
         expansionSpeed = expSpeed;
         linkSize = lSize;
         headSprite = tempHeadSprite;
+        bulletPrefab = bullet;
+        fireInterval = interval;
 
         Vector3 newHeadPos = links[0].transform.position;
         Vector3 offset = newHeadPos - centerPosition;
@@ -171,7 +198,7 @@ public class EnemyManager : MonoBehaviour
                     tailLinks.Reverse();
                     GameObject splitEnemyManagerObj = new GameObject("EnemyManager");
                     EnemyManager splitEnemyManager = splitEnemyManagerObj.AddComponent<EnemyManager>();
-                    splitEnemyManager.InitializeSplitChain(tailLinks, centerPosition, (i == 0) ? rotationSpeed : -rotationSpeed, expansionSpeed, linkSize, headSprite);
+                    splitEnemyManager.InitializeSplitChain(tailLinks, centerPosition, (i == 0) ? rotationSpeed : -rotationSpeed, expansionSpeed, linkSize, headSprite, bulletPrefab, fireInterval);
                 }
 
                 links.RemoveRange(i, links.Count - i);
