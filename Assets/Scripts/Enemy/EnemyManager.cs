@@ -109,10 +109,12 @@ public class EnemyManager : MonoBehaviour
     public void InitializeSplitChain(List<GameObject> tailLinks, Vector3 center, float rotSpeed, float expSpeed, float lSize, Sprite tempHeadSprite)
     {
         links = tailLinks;
+        Color newColor = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
         foreach (var link in links)
         {
             link.transform.SetParent(this.transform);
             link.GetComponent<EnemyLink>().origin = this;
+            link.GetComponent<SpriteRenderer>().color = newColor;
         }
         centerPosition = center;
         rotationSpeed = rotSpeed;
@@ -227,10 +229,20 @@ public class EnemyManager : MonoBehaviour
     {
         if (links.Count == 0) return;
 
-        EnemyLink headLink = links[0].GetComponentInChildren<EnemyLink>();
-        if (headLink != null)
+        for (int i = 0; i < links.Count; i++)
         {
-            headLink.health = 1;
+            if (links[i] != null)
+            {
+                if (i == 0)
+                {
+                    links[i].GetComponent<EnemyLink>().health = 1;
+                    links[i].GetComponent<EnemyLink>().points = 5;
+                }
+                else
+                {
+                    links[i].GetComponent<EnemyLink>().points = 1;
+                }
+            }
         }
         ApplyHeadSprite();
     }

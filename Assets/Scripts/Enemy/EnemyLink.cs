@@ -6,6 +6,7 @@ public class EnemyLink : MonoBehaviour
     public EnemyManager origin;
     public bool touchedRing = false;
     public int health = 3;
+    public int points = 1;
 
     public void ReduceHealth(int damage)
     {
@@ -20,7 +21,14 @@ public class EnemyLink : MonoBehaviour
     {
         if (collision.CompareTag("Ring"))
         {
-            origin.DestroyEnemyChain();
+            if (origin.IsHead(this))
+            {
+                origin.DestroyEnemyChain();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -31,11 +39,6 @@ public class EnemyLink : MonoBehaviour
             ScoreManager.Instance.AddScore(-1);
         } else
         {
-            int points = 1;
-            if (origin.IsHead(this))
-            {
-                points = 5;
-            }
             ScoreManager.Instance.AddScore(points);
         }
     }
