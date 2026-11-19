@@ -12,7 +12,7 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
-    public GameState gameState {get; private set;} = GameState.PLAY;
+    public GameState gameState {get; private set;} = GameState.TITLE;
 
     public static event Action<GameState, GameState> StateChanged;
 
@@ -34,9 +34,10 @@ public class GameManager : MonoBehaviour
         SafeStateChange(GameState.PLAY, GameState.GAMEOVER);
     }
     public void RestartGame() {
-        SafeStateChange(GameState.GAMEOVER, GameState.PLAY);
+        if(gameState == GameState.TITLE) return;
+        SafeStateChange(gameState, GameState.PLAY);
     }
-    public void ReturnToTitle() { //this is the one with a flexible previous state
+    public void ReturnToTitle() {
         if(gameState == GameState.TITLE) return;
         SafeStateChange(gameState, GameState.TITLE);
     }

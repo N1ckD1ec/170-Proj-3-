@@ -22,6 +22,19 @@ public class EnemyManager : MonoBehaviour
     Vector3 centerPosition;
 
     bool initializedLinks = false;
+    void OnEnable()
+    {
+        GameManager.StateChanged += OnStateChanged;
+    }
+    void OnDisable()
+    {
+        GameManager.StateChanged -= OnStateChanged;
+    }
+    void OnStateChanged(GameState previous, GameState next)
+    {
+        if(previous == GameState.PLAY)
+            Destroy(this);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,6 +60,8 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(GameManager.Instance.gameState != GameState.PLAY)
+            return;
         if (links.Count <= 0)
         {
             Destroy(gameObject);
