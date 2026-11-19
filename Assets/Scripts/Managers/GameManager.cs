@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -34,12 +35,13 @@ public class GameManager : MonoBehaviour
         SafeStateChange(GameState.PLAY, GameState.GAMEOVER);
     }
     public void RestartGame() {
-        if(gameState == GameState.TITLE) return;
-        foreach(var thisBull in GameObject.FindGameObjectsWithTag("bullet"))
-        {
-            Destroy(thisBull);
-        }
-        SafeStateChange(gameState, GameState.PLAY);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // if(gameState == GameState.TITLE) return;
+        // foreach(var thisBull in GameObject.FindGameObjectsWithTag("bullet"))
+        // {
+        //     Destroy(thisBull);
+        // }
+        // SafeStateChange(gameState, GameState.PLAY);
     }
     public void ReturnToTitle() {
         if(gameState == GameState.TITLE) return;

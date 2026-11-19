@@ -21,6 +21,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        ScoreManager.Instance.AddScore(-1);
         health -= damage;
         if(health < 0)
             health = 0;
