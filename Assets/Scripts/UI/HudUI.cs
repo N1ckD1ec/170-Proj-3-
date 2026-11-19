@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -34,14 +32,9 @@ public class HudUI : MonoBehaviour
 
     void HandleScoreUpdate(int score)
     {
-        StartCoroutine(ScoreChange(score));
-    }
-    IEnumerator ScoreChange(int score)
-    {
         if (scoreText != null)
         {
             scoreText.text = $"Score: {score}";
         } 
-        yield return null;
     }
 }

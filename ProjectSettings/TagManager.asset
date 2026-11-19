@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Enemy
   - Ring
+  - bullet
   layers:
   - Default
   - TransparentFX

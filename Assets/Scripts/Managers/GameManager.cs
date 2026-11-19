@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour
     }
     public void RestartGame() {
         if(gameState == GameState.TITLE) return;
+        foreach(var thisBull in GameObject.FindGameObjectsWithTag("bullet"))
+        {
+            Destroy(thisBull);
+        }
         SafeStateChange(gameState, GameState.PLAY);
     }
     public void ReturnToTitle() {
