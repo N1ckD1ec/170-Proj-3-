@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     float radius;
     float anglePosition;
-    float moveInput;
+    Vector2 moveInput;
     bool fireHeld;
     float nextFireTime;
 
@@ -35,6 +35,24 @@ public class PlayerController : MonoBehaviour
         if(GameManager.Instance.gameState != GameState.PLAY)
             return;
         fireHeld = context.ReadValueAsButton();
+    }
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if(GameManager.Instance.gameState != GameState.PLAY)
+            return;
+        moveInput = context.ReadValue<Vector2>();
+        if (context.control.device is Mouse)
+        {
+            moveInput = cam.ScreenToWorldPoint(moveInput);
+        }
+    }
+    void updateMovement(Vector2 joyPosition)
+    {
+        if (joyPosition.sqrMagnitude < 0.0001f) return;
+        
+        anglePosition = GetAngleFromMousePosition(joyPosition);
+        rb.MovePosition(GetPositionOnRing(anglePosition));
+        rb.MoveRotation(anglePosition * Mathf.Rad2Deg + 90f);
     }
     void fireBullet()
     {
@@ -55,12 +73,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         
-        Vector2 mousePosition = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        anglePosition = GetAngleFromMousePosition(mousePosition);
-        rb.MovePosition(GetPositionOnRing(anglePosition));
-
-
-        rb.MoveRotation(anglePosition * Mathf.Rad2Deg + 90f);
+        updateMovement(moveInput);
     }
     Vector2 GetPositionOnRing(float angle)
     {
