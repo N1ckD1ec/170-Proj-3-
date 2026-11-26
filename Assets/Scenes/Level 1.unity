@@ -2009,7 +2009,7 @@ MonoBehaviour:
   linkPrefab: {fileID: 9058113540355853321, guid: 0a4b45d35d35f244fae5a485b628755e, type: 3}
   angleConstraint: 30
   rotationSpeed: 2
-  expansionSpeed: 0.05
+  expansionSpeed: 0
   headSprite: {fileID: 21300000, guid: 9680e0f208d96304284d4088c5586405, type: 3}
   bulletPrefab: {fileID: 6882281005900510218, guid: e172037d1fa10344c8742534bde13ce3, type: 3}
   fireInterval: 1
