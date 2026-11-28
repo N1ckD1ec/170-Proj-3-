@@ -2178,12 +2178,20 @@ PrefabInstance:
       value: Still Dirt Background
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.113589
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.1303415
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.08
+      value: -0.0263
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.32967
+      value: -0.3741
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2217,6 +2225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 4e0c592afab74c92a10750b442757524, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4949475003031021515, guid: abfd121a2ac59cd40a60a65918100e30, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
