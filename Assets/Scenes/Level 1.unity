@@ -2243,7 +2243,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 456288666155488123, guid: 709b5dd129f56e3489b317e3dc322007, type: 3}
       propertyPath: health
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1070933979998067725, guid: 709b5dd129f56e3489b317e3dc322007, type: 3}
       propertyPath: fireRate
